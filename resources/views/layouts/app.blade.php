@@ -37,8 +37,7 @@
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text"
-                aria-label="Search">
+            <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" aria-label="Search">
             <div class="navbar-nav">
                 <div class="nav-item text-nowrap">
                     <a class="nav-link px-3" href="{{ route('logout') }}"
@@ -58,22 +57,23 @@
                     <div class="position-sticky pt-3 sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item border-bottom">
-                                <a class="nav-link d-flex {{ request()->is('produtos') ? 'active' : '' }}" aria-current="page"
-                                    href="/produtos">
-                                    <span data-feather="home" class="align-text-bottom"></span>
+                                <a class="nav-link d-flex {{ request()->is('produtos') ? 'active' : '' }}"
+                                    aria-current="page" href="/produtos">
+                                    <span data-feather="file" class="align-text-bottom"></span>
                                     Produtos
                                 </a>
                             </li>
                             <li class="nav-item border-bottom">
                                 <a class="nav-link d-flex {{ request()->is('configuracoes') ? 'active' : '' }}"
                                     href="/configuracoes">
-                                    <span data-feather="file" class="align-text-bottom"></span>
+                                    <span data-feather="settings" class="align-text-bottom"></span>
                                     Configurações
                                 </a>
                             </li>
                             <li class="nav-item border-bottom">
-                                <a class="nav-link d-flex {{ request()->is('usuarios') ? 'active' : '' }}" href="/usuarios">
-                                    <span data-feather="shopping-cart" class="align-text-bottom"></span>
+                                <a class="nav-link d-flex {{ request()->is('usuarios') ? 'active' : '' }}"
+                                    href="/usuarios">
+                                    <span data-feather="user" class="align-text-bottom"></span>
                                     Usuários
                                 </a>
                             </li>
@@ -104,6 +104,46 @@
     </script>
 
     <script>
+        function handlerFormErrors(erros, containerElement = null) {
+            // Iterar sobre as chaves (nomes dos campos) no objeto de erros
+
+            const container = containerElement || document;
+
+            Object.keys(erros).forEach((campo) => {
+                // Encontrar o elemento de input correspondente pelo atributo 'name'
+                const inputElement = container.querySelector(`[name="${campo}"]`);
+
+                console.log(inputElement);
+                if (inputElement) {
+                    // Limpar mensagens de erro existentes, se houver
+                    const mensagemErroElement = inputElement.nextElementSibling;
+                    if (mensagemErroElement) {
+                        mensagemErroElement.remove();
+                    }
+
+                    const novaMensagemErro = document.createElement('span');
+
+                    novaMensagemErro.classList.add('invalid-feedback');
+
+                    novaMensagemErro.textContent = erros[campo][0];
+
+                    inputElement.parentNode.insertBefore(novaMensagemErro, inputElement.nextSibling);
+
+                    inputElement.setCustomValidity(erros[campo][0]);
+
+                    // remove message if event key press
+                    inputElement.addEventListener('keypress', function() {
+                        inputElement.setCustomValidity("");
+                    });
+
+                    // remove message if event change
+                    inputElement.addEventListener('change', function() {
+                        inputElement.setCustomValidity("");
+                    });
+                }
+            });
+        }
+
         (() => {
             "use strict";
             feather.replace({
@@ -130,7 +170,7 @@
         })();
     </script>
     @notifyJs
-   
+
     @yield('scripts')
 </body>
 

@@ -10,4 +10,23 @@ class Produto extends Model
     use HasFactory;
 
     protected $fillable = ['nome', 'vazao_diaria', 'vazao_horaria_media'];
+
+    const TIPO_EMP = [
+        'R' => 'Residêncial',
+        'C' => 'Comercial',
+        'I' => 'Industrial',
+    ];
+
+    const FASE_EMP = [
+        'I' => 'Inícial',
+        'M' => 'Intermediária',
+        'F' => 'Final',
+    ];
+
+    const PADRAO_EMP = [
+        'A' => 'Alto',
+        'M' => 'Médio',
+        'B' => 'Baixo',
+    ];
+    
 }

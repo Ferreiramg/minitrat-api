@@ -3,8 +3,11 @@
 use App\Http\Controllers\ConfiguracaoController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\UsuarioController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,9 +35,19 @@ Route::prefix('')->post('/configuracoes', [ConfiguracaoController::class, 'store
 
 Route::prefix('')->get('/usuarios', [UsuarioController::class, 'index'])->middleware('auth')->name('usuarios');
 
-Route::prefix('')->post('/usuario', [UsuarioController::class, 'store'])->middleware('auth')->name('usuarios.store');
+Route::prefix('')->post('/usuario', [UsuarioController::class, 'store'])->name('usuario.store')->middleware('auth')->name('usuarios.store');
 
-Route::prefix('')->post('/usuario/reset-pass', [UsuarioController::class, 'restPassword'])->name('usuario.reset.password')->middleware('auth');
+Route::prefix('')->post('/usuario/reset-pass', [UsuarioController::class, 'restPassword'])->middleware('auth')->name('usuarios.reset.password');
 
 
-Route::prefix('')->post('/forgot-password-mail', [UsuarioController::class, 'restPasswordMail'])->middleware('auth')->name('password.email');
+Route::prefix('')->post('/forgot-password', function (Request $request) {
+    $request->validate(['email' => 'required|email']);
+
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+
+    return $status === Password::RESET_LINK_SENT
+        ? response()->json(['status' => __($status)], 200)
+        : response()->json(['email' => __($status)], 404);
+})->middleware('auth')->name('password.email');

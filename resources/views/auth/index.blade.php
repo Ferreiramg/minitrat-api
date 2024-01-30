@@ -153,7 +153,7 @@
         var modal_novo = null;
 
         const url_forgt_pass = "{{ route('password.email') }}";
-        const url_reset_pass = "{{ route('usuario.reset.password') }}";
+        const url_reset_pass = "{{ route('usuarios.reset.password') }}";
         const url_store = "{{ route('usuarios.store') }}";
 
         document.addEventListener('DOMContentLoaded', function() {

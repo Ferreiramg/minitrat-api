@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Minitrat | APP'),
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://minitrat.com.br/app/public/'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -121,7 +121,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
+    'key' => env('APP_KEY', 'base64:lPtk7LTiCYakfiKHQzCS4joBWtZYS7+9dIn0JJN7F7E='),
 
     'cipher' => 'AES-256-CBC',
 

@@ -25,22 +25,22 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::prefix('')->get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/produtos', [ProdutoController::class, 'index'])->middleware('auth');
-Route::post('/produtos', [ProdutoController::class, 'store'])->middleware('auth')->name('produtos.store');
+Route::prefix('')->get('/produtos', [ProdutoController::class, 'index'])->middleware('auth')->name('produtos');
+Route::prefix('')->post('/produtos', [ProdutoController::class, 'store'])->middleware('auth')->name('produtos.store');
 
-Route::get('/configuracoes', [ConfiguracaoController::class, 'index'])->middleware('auth');
-Route::post('/configuracoes', [ConfiguracaoController::class, 'store'])->middleware('auth')->name('config.store');
+Route::prefix('')->get('/configuracoes', [ConfiguracaoController::class, 'index'])->middleware('auth')->name('config');
+Route::prefix('')->post('/configuracoes', [ConfiguracaoController::class, 'store'])->middleware('auth')->name('config.store');
 
-Route::get('/usuarios', [UsuarioController::class, 'index'])->middleware('auth');
+Route::prefix('')->get('/usuarios', [UsuarioController::class, 'index'])->middleware('auth')->name('usuarios');
 
-Route::post('/usuario', [UsuarioController::class, 'store'])->name('usuario.store')->middleware('auth');
+Route::prefix('')->post('/usuario', [UsuarioController::class, 'store'])->name('usuario.store')->middleware('auth')->name('usuarios.store');
 
-Route::post('/usuario/reset-pass', [UsuarioController::class, 'restPassword'])->name('usuario.reset.password')->middleware('auth');
+Route::prefix('')->post('/usuario/reset-pass', [UsuarioController::class, 'restPassword'])->name('usuario.reset.password')->middleware('auth')->name('usuarios.reset.password');
 
 
-Route::post('/forgot-password', function (Request $request) {
+Route::prefix('')->post('/forgot-password', function (Request $request) {
     $request->validate(['email' => 'required|email']);
 
     $status = Password::sendResetLink(

@@ -154,7 +154,7 @@
 
         const url_forgt_pass = "{{ route('password.email') }}";
         const url_reset_pass = "{{ route('usuario.reset.password') }}";
-        const url_store = "{{ route('usuario.store') }}";
+        const url_store = "{{ route('usuarios.store') }}";
 
         document.addEventListener('DOMContentLoaded', function() {
             modal_reset = new bootstrap.Modal('#reset-modal', {

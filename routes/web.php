@@ -32,9 +32,9 @@ Route::prefix('')->post('/configuracoes', [ConfiguracaoController::class, 'store
 
 Route::prefix('')->get('/usuarios', [UsuarioController::class, 'index'])->middleware('auth')->name('usuarios');
 
-Route::prefix('')->post('/usuario', [UsuarioController::class, 'store'])->name('usuario.store')->middleware('auth')->name('usuarios.store');
+Route::prefix('')->post('/usuario', [UsuarioController::class, 'store'])->middleware('auth')->name('usuarios.store');
 
-Route::prefix('')->post('/usuario/reset-pass', [UsuarioController::class, 'restPassword'])->name('usuario.reset.password')->middleware('auth')->name('usuarios.reset.password');
+Route::prefix('')->post('/usuario/reset-pass', [UsuarioController::class, 'restPassword'])->name('usuario.reset.password')->middleware('auth');
 
 
 Route::prefix('')->post('/forgot-password-mail', [UsuarioController::class, 'restPasswordMail'])->middleware('auth')->name('password.email');

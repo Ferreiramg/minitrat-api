@@ -4,8 +4,10 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <div class="btn-toolbar mb-2 mb-md-0">
                 <div class="btn-group me-2">
-                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
-                        onclick="Config.add(event)">Novo</button>
+                    @if ($configuracao->count() === 0)
+                        <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                            onclick="Config.add(event)">Novo</button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -32,7 +34,9 @@
                         <tr>
                             <td>{{ $config->id }}</td>
                             <td>
-                                <a href="{{$config->pdf}}" target="_blank" rel="noopener noreferrer">Ver PDF</a>
+                                @if (url($config->pdf) !== url('/storage'))
+                                    <a href="{{ url($config->pdf) }}" target="_blank" rel="noopener noreferrer">Ver PDF</a>
+                                @endif
                             </td>
                             <td>{{ $config->padrao_alto }}</td>
                             <td>{{ $config->padrao_medio }}</td>
@@ -55,7 +59,7 @@
 
         <div class="modal fade" id="create-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <form action="{{ route('config.store') }}" method="post" enctype="multipart/form-data">
+                <form novalidate class="needs-validation" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
@@ -119,7 +123,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-primary">Salvar</button>
+                            <button type="button" onclick="Config.store(event)" class="btn btn-primary">Salvar</button>
                         </div>
                     </div>
                 </form>
@@ -132,6 +136,8 @@
     <script>
         var modal_produto = null;
 
+        const url_store = "{{ route('config.store') }}";
+
         document.addEventListener('DOMContentLoaded', function() {
             modal_produto = new bootstrap.Modal('#create-modal', {
                 keyboard: false,
@@ -140,6 +146,28 @@
         });
 
         const Config = {
+
+            store(event) {
+                const fomulario = event.currentTarget.closest('form');
+
+                if (!fomulario.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                } else {
+                    axios.post(url_store, new FormData(fomulario))
+                        .then((response) => {
+                            window.location.reload();
+                        })
+                        .catch((error) => {
+                            handlerFormErrors(error.response.data.error || {}, fomulario);
+                        })
+                }
+
+                fomulario.classList.add('was-validated');
+
+            },
+
             add(e) {
                 e.preventDefault();
 
@@ -170,7 +198,7 @@
 
                 const inputs = fomulario.querySelectorAll('input');
 
-               // inputs[1].value = data.pdf;
+                // inputs[1].value = data.pdf;
                 inputs[2].value = data.padrao_alto;
                 inputs[3].value = data.padrao_medio;
                 inputs[4].value = data.padrao_baixo;

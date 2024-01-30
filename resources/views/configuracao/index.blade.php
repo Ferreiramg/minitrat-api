@@ -112,7 +112,7 @@
 
                             <div class="form-group">
                                 <label for="taxa_infiltracao">Taxa de Infiltração:</label>
-                                <input type="text" pattern="[0-9]+(\.[0-9]+)?" class="form-control" required id="taxa_infiltracao"
+                                <input type="number" step="0.00001" class="form-control" required id="taxa_infiltracao"
                                     name="taxa_infiltracao">
                             </div>
                             <input type="hidden" name="id" id="id">
@@ -149,10 +149,16 @@
 
                 const inputs = fomulario.querySelectorAll('input');
 
-                inputs[1].value = '';
-                inputs[2].value = '';
-                inputs[3].value = '';
-                inputs[4].value = '';
+                inputs[1].value = "";
+                inputs[2].value = "";
+                inputs[3].value = "";
+                inputs[4].value = "";
+                inputs[5].value = "";
+                inputs[6].value = "";
+                inputs[7].value = "";
+                inputs[8].value = "";
+                inputs[9].value = "";
+                inputs[10].value = "";
             },
             edit(event) {
 
@@ -164,10 +170,16 @@
 
                 const inputs = fomulario.querySelectorAll('input');
 
-                inputs[1].value = data.nome;
-                inputs[2].value = data.vazao_diaria;
-                inputs[3].value = data.vazao_horaria_media;
-                inputs[4].value = data.id;
+               // inputs[1].value = data.pdf;
+                inputs[2].value = data.padrao_alto;
+                inputs[3].value = data.padrao_medio;
+                inputs[4].value = data.padrao_baixo;
+                inputs[5].value = data.funcionario_operacao;
+                inputs[6].value = data.funcionario_admin;
+                inputs[7].value = data.refeicao;
+                inputs[8].value = data.visita;
+                inputs[9].value = data.taxa_infiltracao;
+                inputs[10].value = data.id;
             },
         };
     </script>

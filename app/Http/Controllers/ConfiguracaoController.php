@@ -29,11 +29,15 @@ class ConfiguracaoController extends Controller
             return redirect('/configuracoes')->withErrors('É necessário enviar um arquivo PDF');
         }
 
-        $file = $request->file->store('pdfs','public');
+        if ($request->hasFile('file')) {
 
-        $request->query('pdf', $file);
+            $file = $request->file->store('pdfs', 'public');
 
-        $request->request->add(['pdf' => $file]);
+            $request->query('pdf', $file);
+
+            $request->request->add(['pdf' => $file]);
+        }
+
 
         if ($request->id) {
             $configuracao = $configuracao->find($request->id);

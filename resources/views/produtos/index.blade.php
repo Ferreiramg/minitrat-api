@@ -55,12 +55,12 @@
                             </div>
                             <div class="form-group my-2">
                                 <label for="vazaoDiaria">Vazão Diária (m³/dia)</label>
-                                <input step="0.10" type="number" class="form-control" id="vazaoDiaria"
+                                <input step="0.01" type="number" class="form-control" id="vazaoDiaria"
                                     name="vazao_diaria" placeholder="Digite a vazão diária" required>
                             </div>
                             <div class="form-group">
                                 <label for="vazaoHorariaMedia">Vazão Horária Média (m³/h)</label>
-                                <input step="0.10" type="number" class="form-control" id="vazaoHorariaMedia"
+                                <input step="0.01" type="number" class="form-control" id="vazaoHorariaMedia"
                                     name="vazao_horaria_media" placeholder="Digite a vazão horária média" required>
                             </div>
                             <input type="hidden" name="id" id="id">

@@ -50,6 +50,25 @@ class UsuarioController extends Controller
         }
     }
 
+    public function restPasswordMail(Request $request)
+    {
+        try {
+            $this->validate($request, ['email' => 'required|email']);
+
+            $status = Password::sendResetLink(
+                $request->only('email')
+            );
+
+            return $status === Password::RESET_LINK_SENT
+                ? response()->json(['status' => __($status)], 200)
+                : response()->json(['email' => __($status)], 404);
+        } catch (ValidationException $th) {
+            return response()->json(['error' => $th->errors()], 422);
+        } catch (Exception $th) {
+            return response()->json(['error' => $th->getMessage()], 500);
+        }
+    }
+    
     public function restPassword(Request $request)
     {
         try {

@@ -152,6 +152,10 @@
         var modal_reset = null;
         var modal_novo = null;
 
+        const url_forgt_pass = "{{ route('password.email') }}";
+        const url_reset_pass = "{{ route('usuario.reset.password') }}";
+        const url_store = "{{ route('usuario.store') }}";
+
         document.addEventListener('DOMContentLoaded', function() {
             modal_reset = new bootstrap.Modal('#reset-modal', {
                 keyboard: false,
@@ -181,7 +185,7 @@
                     event.stopPropagation();
 
                 } else {
-                    axios.post('/usuario', new FormData(fomulario))
+                    axios.post(url_store, new FormData(fomulario))
                         .then((response) => {
                             window.location.reload();
                         })
@@ -201,7 +205,7 @@
                     event.stopPropagation();
 
                 } else {
-                    axios.post('/usuario/reset-pass', new FormData(fomulario))
+                    axios.post(url_reset_pass, new FormData(fomulario))
                         .then((response) => {
                             alert(response.data?.status);
                             window.location.reload();
@@ -227,7 +231,7 @@
 
                 btn.innerHTML = 'Enviando...';
 
-                axios.post('/forgot-password', {
+                axios.post(url_forgt_pass, {
                     email
                 }).then((response) => {
                     if (response.data?.status) {

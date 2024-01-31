@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ConfiguracaoController;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\SolicitacaoController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::prefix('')->get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('')->get('/solicitacoes', [SolicitacaoController::class, 'index'])->middleware('auth')->name('solicitacoes');
 
 Route::prefix('')->get('/produtos', [ProdutoController::class, 'index'])->middleware('auth')->name('produtos');
 Route::prefix('')->post('/produtos', [ProdutoController::class, 'store'])->middleware('auth')->name('produtos.store');

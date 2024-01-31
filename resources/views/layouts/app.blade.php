@@ -64,6 +64,13 @@
                                 </a>
                             </li>
                             <li class="nav-item border-bottom">
+                                <a class="nav-link d-flex {{ request()->is('solicitacoes') ? 'active' : '' }}"
+                                    aria-current="page" href="{{ route('solicitacoes') }}">
+                                    <span data-feather="file" class="align-text-bottom"></span>
+                                    Solicitações Enviadas
+                                </a>
+                            </li>
+                            <li class="nav-item border-bottom">
                                 <a class="nav-link d-flex {{ request()->is('produtos') ? 'active' : '' }}"
                                     aria-current="page" href="{{ route('produtos') }}">
                                     <span data-feather="file" class="align-text-bottom"></span>

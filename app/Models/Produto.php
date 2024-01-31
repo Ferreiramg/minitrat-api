@@ -18,7 +18,7 @@ class Produto extends Model
     ];
 
     const FASE_EMP = [
-        'I' => 'Inícial',
+        'I' => 'Inicial',
         'M' => 'Intermediária',
         'F' => 'Final',
     ];

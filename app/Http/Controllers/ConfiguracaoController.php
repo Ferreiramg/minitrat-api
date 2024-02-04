@@ -12,8 +12,7 @@ class ConfiguracaoController extends Controller
 
     public function index(Configuracao $configuracao)
     {
-        return view(
-            'configuracao.index',
+        return view('configuracao.index',
             [
                 'configuracao' => $configuracao->get()->map(function ($item) {
                     $item->pdf = asset('storage/' . $item->pdf);

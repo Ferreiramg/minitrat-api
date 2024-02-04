@@ -15,7 +15,10 @@ class Solicitacao extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['id', 'tipo_empree', 'fase_empree', 'padrao', 'modelo_empree', 'total_empree', 'distancia_ponto', 'turno_um', 'turno_dois', 'turno_tres', 'op_turno_um', 'op_turno_dois', 'op_turno_tres', 'razao', 'nome', 'telefone', 'email', 'uf', 'cidade', 'receber_notificacao', 'created_at'];
+    protected $fillable = [
+        'id', 'tipo_empree', 'fase_empree', 'padrao', 'modelo_empree', 'total_empree', 'distancia_ponto', 'turno_um', 'turno_dois', 'turno_tres', 'op_turno_um', 'op_turno_dois', 'op_turno_tres', 'razao', 'nome', 'telefone', 'email', 'uf', 'cidade', 'receber_notificacao', 'created_at',
+        'produto_nome', 'produto_vaza_diaria', 'produto_vaza_horaria_media', 'produto_quantidade'
+    ];
 
     # Formata o tipo empreendimento para impressão na tela
     public function getTipoEmpreendimentoAttribute()
